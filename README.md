@@ -2,7 +2,6 @@
 
 [**Paper**](https://openreview.net/pdf?id=xkmhsBITaCw) | [**OpenReview**](https://openreview.net/forum?id=xkmhsBITaCw) | [**ArXiv**](https://arxiv.org/abs/2301.12636)
 
----
 
 This repository contains the implementation code for our paper: <br>
 [Exploring Image Augmentations for Siamese Representation Learning with Chest X-Rays](https://openreview.net/pdf?id=xkmhsBITaCw)
@@ -11,7 +10,6 @@ Authors: Rogier van der Sluijs*, Nandita Bhaskhar*, Daniel Rubin, Curtis Langlot
 
 * _Equal Contributions_
 
----
 
 ## tl;dr
 
@@ -34,7 +32,6 @@ pre-commit
 
 Make sure to update the `.env` file according to the setup of your cluster and placement of your project folder on disk. Also, run `accelerate config` to generate a config file, and copy it from `~/cache/huggingface/accelerate/default_config.yaml` to the project directory. Finally, create symlinks from the `data/` folder to the datasets you would want to train on.
 
----
 
 ## Training
 Currently, we support two modes of training: pretraining and linear evaluation. 
@@ -75,13 +72,10 @@ To evaluate a model on a downstream task without fine-tuning, use the `siaug/eva
 python siaug/eval.py experiment=eval_chex_resnet +checkpoint_folder=/path/to/model/checkpoints/folder +save_path=/path/to/save/resulting/pickle/files
 ```
 
----
 
 ## Contact Us
 <a name="contact"></a> 
 This repository is being developed at the Stanford's MIMI Lab. Please reach out to `sluijs [at] stanford [dot] edu` and `nanbhas [at] stanford [dot] edu` if you would like to use or contribute to `siaug`. 
-
----
 
 ## Citation
 If you find our paper and/or code useful, please use the following BibTex for citation:
