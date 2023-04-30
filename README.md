@@ -9,8 +9,17 @@ This repository contains the implementation code for our paper: <br>
 
 Authors: Rogier van der Sluijs*, Nandita Bhaskhar*, Daniel Rubin, Curtis Langlotz, Akshay Chaudhari
 
-*__Equal Contributions__
+* _Equal Contributions_
 
+---
+
+## tl;dr
+
+Tailored augmentation strategies for image-only Siamese representation learning can outperform supervised baselines with zero-shot learning, linear probing and fine-tuning for chest X-ray classification. We systematically assess the effect of various augmentations on the quality and robustness of the learned representations. We train and evaluate Siamese Networks for abnormality detection on chest X-Rays across three large datasets (MIMIC-CXR, CheXpert and VinDr-CXR). We investigate the efficacy of the learned representations through experiments involving linear probing, fine-tuning, zero-shot transfer, and data efficiency. Finally, we identify a set of augmentations that yield robust representations that generalize well to both out-of-distribution data and diseases, while outperforming supervised baselines using just zero-shot transfer and linear probes by up to 20%.
+
+
+## Updates
+- __[04/29/2023]__ The code is currently being cleaned up for release. Please stay tuned for updates. If you'd like to access our code sooner, reach out to us via [email](#contact)
 
 
 ## Installation
@@ -24,6 +33,8 @@ pre-commit
 ```
 
 Make sure to update the `.env` file according to the setup of your cluster and placement of your project folder on disk. Also, run `accelerate config` to generate a config file, and copy it from `~/cache/huggingface/accelerate/default_config.yaml` to the project directory. Finally, create symlinks from the `data/` folder to the datasets you would want to train on.
+
+---
 
 ## Training
 Currently, we support two modes of training: pretraining and linear evaluation. 
@@ -64,5 +75,23 @@ To evaluate a model on a downstream task without fine-tuning, use the `siaug/eva
 python siaug/eval.py experiment=eval_chex_resnet +checkpoint_folder=/path/to/model/checkpoints/folder +save_path=/path/to/save/resulting/pickle/files
 ```
 
+---
+
+## Contact Us
+<a name="contact"></a> 
+This repository is being developed at the Stanford's MIMI Lab. Please reach out to `sluijs [at] stanford [dot] edu` and `nanbhas [at] stanford [dot] edu` if you would like to use or contribute to `siaug`. 
+
+---
+
+## Citation
+If you find our paper and/or code useful, please use the following BibTex for citation:
+```bib
+@article{sluijsnanbhas2023_siaug,
+  title={Exploring Image Augmentations for Siamese Representation Learning with Chest X-Rays}, 
+  author={Rogier van der Sluijs and Nandita Bhaskhar and Daniel Rubin and Curtis Langlotz and Akshay Chaudhari},
+  year={2023},
+  journal={Medical Imaging with Deep Learning (MIDL)},
+}
+```
 
 
