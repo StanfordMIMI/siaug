@@ -1,8 +1,9 @@
 # Siamese Augmentation Strategies (SiAug)
 
 This repository contains the implementation code for paper: <br>
-__[Exploring Image Augmentations for Siamese Representation Learning with Chest X-Rays]([https://arxiv.org/abs/2210.03115](https://openreview.net/pdf?id=xkmhsBITaCw))__
-___
+[Exploring Image Augmentations for Siamese Representation Learning with Chest X-Rays](https://openreview.net/pdf?id=xkmhsBITaCw)
+
+[**Paper**](https://openreview.net/pdf?id=xkmhsBITaCw) | [**OpenReview**](https://openreview.net/forum?id=xkmhsBITaCw) | [**ArXiv**](https://arxiv.org/abs/2301.12636)
 
 ## Installation
 To contribute to _siaug_, you can install the package in editable mode:
