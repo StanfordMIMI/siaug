@@ -7,6 +7,7 @@ This repository contains the implementation code for our paper: <br>
 [Exploring Image Augmentations for Siamese Representation Learning with Chest X-Rays](https://openreview.net/pdf?id=xkmhsBITaCw)
 
 Authors: Rogier van der Sluijs*, Nandita Bhaskhar*, Daniel Rubin, Curtis Langlotz, Akshay Chaudhari
+
 *- co-first authors
 
 
