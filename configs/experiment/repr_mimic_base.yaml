@@ -1,0 +1,26 @@
+# @package _global_
+
+defaults:
+  - override /dataloader: mimic.yaml
+
+# general settings
+task_name: ???
+tags: ["${model.backbone}", "repr", "mimic"]
+
+# override dataloader settings
+dataloader:
+  train:
+    batch_size: 256
+    dataset:
+      # only keep the image, dispose the text and labels
+      com_transform:
+        _target_: siaug.augmentations.ExtractKeys
+        keys: ["img"]
+      img_transform: ???
+  # we're not using a validation set for representation learning
+  valid: null
+
+# override model settings
+model:
+  backbone: ???
+  num_channels: 1

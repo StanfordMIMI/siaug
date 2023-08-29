@@ -1,0 +1,46 @@
+defaults:
+  - default.yaml
+
+train:
+  dataset:
+    _target_: siaug.dataloaders.VinDRDataset
+    path: ${paths.data_dir}/vindr/annotations/image_labels_train_ground_truth_3000_subset.csv
+    data_dir: ${paths.data_dir}/vindr/512
+    columns:
+      [
+        "Cardiomegaly",
+        "Pulmonary fibrosis",
+        "Pleural thickening",
+        "Pleural effusion",
+        "Lung Opacity",
+        "Tuberculosis",
+        "Pneumonia",
+        "Nodule/Mass",
+        "No finding"
+      ]
+    na_mode: null
+    img_transform: ???
+    txt_transform: null
+    lbl_transform: null
+
+valid:
+  dataset:
+    _target_: siaug.dataloaders.VinDRDataset
+    path: ${paths.data_dir}/vindr/annotations/image_labels_test_ground_truth_500_subset.csv
+    data_dir: ${paths.data_dir}/vindr/512
+    columns:
+      [
+        "Cardiomegaly",
+        "Pulmonary fibrosis",
+        "Pleural thickening",
+        "Pleural effusion",
+        "Lung Opacity",
+        "Tuberculosis",
+        "Pneumonia",
+        "Nodule/Mass",
+        "No finding"
+      ]
+    na_mode: null
+    img_transform: ???
+    txt_transform: null
+    lbl_transform: null

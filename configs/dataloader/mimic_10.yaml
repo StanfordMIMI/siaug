@@ -1,0 +1,44 @@
+defaults:
+  - default.yaml
+
+train:
+  dataset:
+    _target_: siaug.dataloaders.MimicDataset
+    path: ${paths.data_dir}/mimic/splits/train_frontal_train_split_0.1.csv
+    data_dir: ${paths.data_dir}/mimic/512
+    columns:
+      [
+        "Atelectasis",
+        "Cardiomegaly",
+        "Edema",
+        "Fracture",
+        "Effusion",
+        "Pneumonia",
+        "Pneumothorax",
+        "No Finding",
+      ]
+    na_mode: positive
+    img_transform: ???
+    txt_transform: null
+    lbl_transform: null
+
+valid:
+  dataset:
+    _target_: siaug.dataloaders.MimicDataset
+    path: ${paths.data_dir}/mimic/splits/train_frontal_valid.csv
+    data_dir: ${paths.data_dir}/mimic/512
+    columns:
+      [
+        "Atelectasis",
+        "Cardiomegaly",
+        "Edema",
+        "Fracture",
+        "Effusion",
+        "Pneumonia",
+        "Pneumothorax",
+        "No Finding",
+      ]
+    na_mode: positive
+    img_transform: ???
+    txt_transform: null
+    lbl_transform: null

@@ -1,0 +1,81 @@
+# @package _global_
+
+defaults:
+  - override /dataloader: vindr_imbalanced_subset.yaml
+  - override /model: fully_supervised.yaml
+  - override /criterion: bce.yaml
+  - override /metrics: vindr.yaml
+
+# general settings
+task_name: ???
+max_epoch: 90
+
+# override dataloader settings
+dataloader:
+  train:
+    batch_size: 256
+    dataset:
+      com_transform:
+        _target_: siaug.augmentations.ExtractKeys
+        keys: ["img", "lbl"]
+      img_transform:
+        _target_: torchvision.transforms.Compose
+        transforms:
+          - _partial_: true
+            _target_: numpy.load
+          - _partial_: true
+            _target_: torch.tensor
+          - _partial_: true
+            _target_: torch.unsqueeze
+            dim: 0
+          - _target_: kornia.augmentation.Resize
+            size:
+              - 224
+              - 224
+            keepdim: true
+          - _target_: torchvision.transforms.Normalize
+            mean:
+              - 0.5600
+            std:
+              - 0.2710
+
+  valid:
+    batch_size: 256
+    dataset:
+      com_transform:
+        _target_: siaug.augmentations.ExtractKeys
+        keys: ["img", "lbl"]
+      img_transform:
+        _target_: torchvision.transforms.Compose
+        transforms:
+          - _partial_: true
+            _target_: numpy.load
+          - _partial_: true
+            _target_: torch.tensor
+          - _partial_: true
+            _target_: torch.unsqueeze
+            dim: 0
+          - _target_: kornia.augmentation.Resize
+            size:
+              - 224
+              - 224
+            keepdim: true
+          - _target_: torchvision.transforms.Normalize
+            mean:
+              - 0.5600
+            std:
+              - 0.2710
+
+# override model settings
+model:
+  backbone: ???
+  num_channels: 1
+  num_classes: 9
+  ckpt_path: null
+  freeze: false
+
+# optimizer for linear eval
+optimizer:
+  lr: 0.1
+  weight_decay: 0
+  momentum: 0.9

@@ -1,0 +1,10 @@
+# @package _global_
+
+defaults:
+  - lcls_mimic_base.yaml
+
+task_name: lcls_mimic_principled_siam_rrc_low
+
+model:
+  backbone: resnet50
+  ckpt_path: /fsx/home-sluijs/siaug/logs/repr_mimic_principled_siam_rrc_low/runs/2023-01-11_08-40-22/checkpoints/last.pt/pytorch_model.bin

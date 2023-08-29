@@ -1,0 +1,7 @@
+# project: siaug  # accelerate converts this to "project"
+entity: aimi
+id: null
+group: null
+name: ${task_name}
+resume: allow
+dir: ${paths.output_dir}

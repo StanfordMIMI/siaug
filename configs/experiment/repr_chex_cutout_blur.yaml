@@ -1,0 +1,47 @@
+# @package _global_
+
+defaults:
+  - repr_chex_base.yaml
+
+# general settings
+task_name: repr_chex_cutout_blur
+
+# override dataloader settings
+dataloader:
+  train:
+    dataset:
+      # only keep the image, dispose the text and labels
+      img_transform:
+        _target_: siaug.augmentations.ToSiamese
+        # random resized crop
+        t1:
+          _target_: torchvision.transforms.Compose
+          transforms:
+            - _target_: torchvision.transforms.Resize
+              size: [224, 224]
+            - _target_: torchvision.transforms.ToTensor
+            - _target_: kornia.augmentation.RandomErasing
+              p: 1
+              keepdim: true
+            - _target_: kornia.augmentation.RandomGaussianBlur
+              kernel_size: [23, 23]
+              sigma: [.1, 2.]
+              p: 1
+              keepdim: true
+            - _target_: torchvision.transforms.Normalize
+              mean: [0.50551915]
+              std: [0.2895694]
+        # identity
+        t2:
+          _target_: torchvision.transforms.Compose
+          transforms:
+            - _target_: torchvision.transforms.Resize
+              size: [224, 224]
+            - _target_: torchvision.transforms.ToTensor
+            - _target_: torchvision.transforms.Normalize
+              mean: [0.50551915]
+              std: [0.2895694]
+
+# override model settings
+model:
+  backbone: resnet50

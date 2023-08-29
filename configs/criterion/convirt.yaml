@@ -1,0 +1,4 @@
+# the criterion used for the loss function
+_target_: siaug.losses.ConVIRTLoss
+tau: 0.1
+weight: 0.75

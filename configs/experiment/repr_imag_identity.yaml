@@ -1,0 +1,36 @@
+# @package _global_
+
+defaults:
+  - repr_imag_base.yaml
+
+# general settings
+task_name: repr_imag_identity
+
+# override dataloader settings
+dataloader:
+  train:
+    dataset:
+      img_transform:
+        _target_: siaug.augmentations.ToSiamese
+        t1:
+          _target_: torchvision.transforms.Compose
+          transforms:
+            - _target_: torchvision.transforms.Resize
+              size: [224, 224]
+            - _target_: torchvision.transforms.ToTensor
+            - _target_: torchvision.transforms.Normalize
+              mean: [0.485, 0.456, 0.406]
+              std: [0.229, 0.224, 0.225]
+        t2:
+          _target_: torchvision.transforms.Compose
+          transforms:
+            - _target_: torchvision.transforms.Resize
+              size: [224, 224]
+            - _target_: torchvision.transforms.ToTensor
+            - _target_: torchvision.transforms.Normalize
+              mean: [0.485, 0.456, 0.406]
+              std: [0.229, 0.224, 0.225]
+
+# override model settings
+model:
+  backbone: resnet50

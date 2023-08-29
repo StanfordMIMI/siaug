@@ -1,0 +1,12 @@
+# @package _global_
+
+defaults:
+  - mimic_fully_supervised_base.yaml
+
+# general settings
+task_name: mimic_fully_supervised_pretrained_vit_small_patch16_224_dino
+
+# override model settings
+model:
+  backbone: vit_small_patch16_224_dino
+  pretrained: True

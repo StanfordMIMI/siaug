@@ -1,0 +1,13 @@
+_target_: siaug.models.SimSiam
+
+# backbone/encoder of the siamese network (=model_name for timm)
+backbone: ???
+
+# the number of channels for the images in the dataset (=in_chans for timm)
+num_channels: ???
+
+# output dimension of the projector and the predictor
+output_dim: 2048
+
+# dimension of the hidden layers in the predictor
+pred_hidden_dim: 512

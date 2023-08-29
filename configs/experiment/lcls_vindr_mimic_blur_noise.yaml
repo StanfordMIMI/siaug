@@ -1,0 +1,8 @@
+# @package _global_
+
+defaults:
+- lcls_vindr_base.yaml
+task_name: lcls_vindr_mimic_blur_noise
+model:
+  backbone: resnet50
+  ckpt_path: /fsx/aimi/siaug/checkpoints/repr/mimic/blur_noise-last.pt

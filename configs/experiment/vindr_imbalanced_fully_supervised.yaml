@@ -1,0 +1,11 @@
+# @package _global_
+
+defaults:
+  - vindr_imbalanced_fully_supervised_base.yaml
+
+# general settings
+task_name: vindr_imbalanced_fully_supervised
+
+# override model settings
+model:
+  backbone: resnet50

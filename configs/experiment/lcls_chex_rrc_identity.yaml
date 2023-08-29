@@ -1,0 +1,12 @@
+# @package _global_
+
+defaults:
+  - lcls_chex_base.yaml
+
+# general settings
+task_name: lcls_chex_rrc_identity
+
+# override model settings
+model:
+  backbone: resnet50
+  ckpt_path: /last.pt/pytorch_model.bin

@@ -1,0 +1,62 @@
+# @package _global_
+
+defaults:
+  - repr_mimic_base.yaml
+task_name: repr_mimic_sobel_rrc
+model:
+  backbone: resnet50
+dataloader:
+  train:
+    dataset:
+      img_transform:
+        _target_: siaug.augmentations.ToSiamese
+        t1:
+          _target_: torchvision.transforms.Compose
+          transforms:
+            - _partial_: true
+              _target_: siaug.utils.dataset.load_zmv
+            - _partial_: true
+              _target_: siaug.augmentations.to_dtype
+            - _partial_: true
+              _target_: siaug.augmentations.min_max_norm
+            - _partial_: true
+              _target_: siaug.augmentations.to_torch
+            - _target_: kornia.augmentation.Resize
+              size:
+                - 224
+                - 224
+              keepdim: true
+            - _target_: siaug.augmentations.RandomSobelFilter
+              p: 1
+              keepdim: true
+            - _target_: torchvision.transforms.RandomResizedCrop
+              size: 224
+              scale:
+                - 0.2
+                - 1.0
+            - _target_: torchvision.transforms.Normalize
+              mean:
+                - 0.3
+              std:
+                - 0.1
+        t2:
+          _target_: torchvision.transforms.Compose
+          transforms:
+            - _partial_: true
+              _target_: siaug.utils.dataset.load_zmv
+            - _partial_: true
+              _target_: siaug.augmentations.to_dtype
+            - _partial_: true
+              _target_: siaug.augmentations.min_max_norm
+            - _partial_: true
+              _target_: siaug.augmentations.to_torch
+            - _target_: kornia.augmentation.Resize
+              size:
+                - 224
+                - 224
+              keepdim: true
+            - _target_: torchvision.transforms.Normalize
+              mean:
+                - 0.3
+              std:
+                - 0.1

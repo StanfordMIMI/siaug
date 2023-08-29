@@ -1,0 +1,14 @@
+# @package _global_
+
+defaults:
+  - lcls_mimic_base.yaml
+
+# general settings
+task_name: lcls_mimic_baseline
+
+# override model settings
+model:
+  freeze: false
+  backbone: resnet50
+  ckpt_path: null
+  pretrained: true

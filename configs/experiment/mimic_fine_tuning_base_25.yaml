@@ -1,0 +1,78 @@
+# @package _global_
+
+defaults:
+  - override /dataloader: mimic_25.yaml
+  - override /model: fine_tuning.yaml
+  - override /criterion: bce.yaml
+  - override /metrics: chexpert.yaml
+
+# general settings
+task_name: ???
+max_epoch: 50
+
+# override dataloader settings
+dataloader:
+  train:
+    batch_size: 256
+    dataset:
+      com_transform:
+        _target_: siaug.augmentations.ExtractKeys
+        keys: ["img", "lbl"]
+      img_transform:
+        _target_: torchvision.transforms.Compose
+        transforms:
+          - _partial_: true
+            _target_: torch.load
+          - _partial_: true
+            _target_: torch.unsqueeze
+            dim: 0
+          - _target_: kornia.augmentation.Resize
+            size:
+              - 224
+              - 224
+            keepdim: true
+          - _target_: torchvision.transforms.Normalize
+            mean:
+              - 0.5173
+            std:
+              - 0.2821
+
+  valid:
+    batch_size: 256
+    dataset:
+      com_transform:
+        _target_: siaug.augmentations.ExtractKeys
+        keys: ["img", "lbl"]
+      img_transform:
+        _target_: torchvision.transforms.Compose
+        transforms:
+          - _partial_: true
+            _target_: torch.load
+          - _partial_: true
+            _target_: torch.unsqueeze
+            dim: 0
+          - _target_: kornia.augmentation.Resize
+            size:
+              - 224
+              - 224
+            keepdim: true
+          - _target_: torchvision.transforms.Normalize
+            mean:
+              - 0.5173
+            std:
+              - 0.2821
+
+# override model settings
+model:
+  backbone: ??
+  num_channels: 1
+  num_classes: 8
+  ckpt_path: ???
+  freeze: false
+
+
+# optimizer for linear eval
+optimizer:
+  lr: 0.0001
+  weight_decay: 0
+  momentum: 0.9

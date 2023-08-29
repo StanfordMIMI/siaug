@@ -1,0 +1,8 @@
+- - "Acc@1k"
+  - _partial_: true
+    _target_: torchmetrics.functional.accuracy
+    top_k: 1
+- - "Acc@5k"
+  - _partial_: true
+    _target_: torchmetrics.functional.accuracy
+    top_k: 5

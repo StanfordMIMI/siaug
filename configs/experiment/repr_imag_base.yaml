@@ -1,0 +1,24 @@
+# @package _global_
+
+defaults:
+  - override /dataloader: imagenet.yaml
+
+# general settings
+task_name: ???
+
+# override dataloader settings
+dataloader:
+  train:
+    batch_size: 256
+    dataset:
+      # only keep the image, dispose the text and labels
+      com_transform:
+        _target_: siaug.augmentations.ExtractKeys
+        keys: ["img"]
+      img_transform: ???
+  valid: null
+
+# override model settings
+model:
+  backbone: ???
+  num_channels: 3

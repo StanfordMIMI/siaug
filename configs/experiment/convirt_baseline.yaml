@@ -1,0 +1,100 @@
+# @package _global_
+
+defaults:
+  - override /dataloader: chexpert.yaml
+  - override /model: convirt.yaml
+  - override /criterion: convirt.yaml
+  - override /optimizer: adam.yaml
+
+# general settings
+task_name: convirt_baseline
+tags: ["${model.img_backbone}", "${model.txt_backbone}", "repr", "chex"]
+max_epoch: 100
+
+# override dataloader settings
+dataloader:
+  train:
+    batch_size: 32 # convirt defaults to 32
+    dataset:
+      # only keep the image, dispose the text and labels
+      path: ${paths.data_dir}/chexpert/train_200k_text.csv
+      com_transform:
+        _target_: siaug.augmentations.ExtractKeys
+        keys: ["img", "txt"]
+      img_transform:
+        _target_: torchvision.transforms.Compose
+        transforms:
+          - _target_: torchvision.transforms.RandomResizedCrop
+            size: 320
+            scale: [0.6, 1.]
+          - _target_: torchvision.transforms.RandomHorizontalFlip
+          - _target_: torchvision.transforms.RandomAffine
+            degrees: [-20, 20]
+            translate: [0.1, 0.1]
+            scale: [0.95, 1.05]
+          - _target_: torchvision.transforms.ColorJitter
+            brightness: 0.4
+            contrast: 0.4
+          - _target_: siaug.augmentations.simsiam.GaussianBlur
+            sigma: [.1, 3.]
+          - _target_: torchvision.transforms.Resize
+            size: [224, 224]
+          - _target_: torchvision.transforms.ToTensor
+          - _target_: torchvision.transforms.Normalize
+            mean: [0.50551915]
+            std: [0.2895694]
+      txt_transform:
+        _target_: torchvision.transforms.Compose
+        transforms:
+          - _target_: siaug.augmentations.SanitizeText
+          - _target_: siaug.augmentations.RandomSentenceSampler
+            min_words: 3
+          - _target_: siaug.augmentations.Tokenizer
+            model_name: emilyalsentzer/Bio_ClinicalBERT
+      txt_key: report_impression
+  valid:
+    batch_size: 32 # convirt defaults to 32
+    dataset:
+      # only keep the image, dispose the text and labels
+      path: ${paths.data_dir}/chexpert/valid_23k_text.csv
+      com_transform:
+        _target_: siaug.augmentations.ExtractKeys
+        keys: ["img", "txt"]
+      img_transform:
+        _target_: torchvision.transforms.Compose
+        transforms:
+          - _target_: torchvision.transforms.RandomResizedCrop
+            size: 320
+            scale: [0.6, 1.]
+          - _target_: torchvision.transforms.RandomHorizontalFlip
+          - _target_: torchvision.transforms.RandomAffine
+            degrees: [-20, 20]
+            translate: [0.1, 0.1]
+            scale: [0.95, 1.05]
+          - _target_: torchvision.transforms.ColorJitter
+            brightness: 0.4
+            contrast: 0.4
+          - _target_: siaug.augmentations.simsiam.GaussianBlur
+            sigma: [.1, 3.]
+          - _target_: torchvision.transforms.Resize
+            size: [224, 224]
+          - _target_: torchvision.transforms.ToTensor
+          - _target_: torchvision.transforms.Normalize
+            mean: [0.50551915]
+            std: [0.2895694]
+      txt_transform:
+        _target_: torchvision.transforms.Compose
+        transforms:
+          - _target_: siaug.augmentations.SanitizeText
+          - _target_: siaug.augmentations.RandomSentenceSampler
+            min_words: 3
+          - _target_: siaug.augmentations.Tokenizer
+            model_name: emilyalsentzer/Bio_ClinicalBERT
+      txt_key: report_impression
+
+# override model settings
+model:
+  img_backbone: resnet50
+  txt_backbone: emilyalsentzer/Bio_ClinicalBERT
+  num_channels: 1
+  pretrained: true

@@ -1,0 +1,8 @@
+# @package _global_
+
+defaults:
+- lcls_vindr_base.yaml
+task_name: lcls_vindr_mimic_rotate_rrc
+model:
+  backbone: resnet50
+  ckpt_path: /fsx/aimi/siaug/checkpoints/repr/mimic/rotate_rrc-last.pt

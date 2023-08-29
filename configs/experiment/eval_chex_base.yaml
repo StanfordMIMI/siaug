@@ -1,0 +1,55 @@
+# @package _global_
+
+defaults:
+  - override /dataloader: chexpert.yaml
+  - override /model: inference.yaml
+  - override /criterion: bce.yaml
+  - override /metrics: chexpert.yaml
+
+# general settings
+task_name: ???
+
+# override dataloader settings
+dataloader:
+  train:
+    batch_size: 256
+    dataset:
+      com_transform:
+        _target_: siaug.augmentations.ExtractKeys
+        keys: ["img", "lbl"]
+      img_transform:
+        _target_: torchvision.transforms.Compose
+        transforms:
+          - _target_: torchvision.transforms.RandomResizedCrop
+            size: 224
+          - _target_: torchvision.transforms.RandomHorizontalFlip
+          - _target_: torchvision.transforms.ToTensor
+          - _target_: torchvision.transforms.Normalize
+            mean: [0.50551915]
+            std: [0.2895694]
+
+  valid:
+    batch_size: 256
+    dataset:
+      com_transform:
+        _target_: siaug.augmentations.ExtractKeys
+        keys: ["img", "lbl"]
+      img_transform:
+        _target_: torchvision.transforms.Compose
+        transforms:
+          - _target_: torchvision.transforms.Resize
+            size: [256, 256]
+          - _target_: torchvision.transforms.CenterCrop
+            size: 224
+          - _target_: torchvision.transforms.ToTensor
+          - _target_: torchvision.transforms.Normalize
+            mean: [0.50551915]
+            std: [0.2895694]
+
+# override model settings
+model:
+  backbone: ???
+  num_channels: 1
+  num_classes: 8
+  ckpt_path: null
+  freeze: True

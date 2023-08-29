@@ -1,0 +1,8 @@
+# @package _global_
+
+defaults:
+  - lcls_mimic_base.yaml
+task_name: lcls_rrc_middle_high_jitter_contrast
+model:
+  backbone: resnet50
+  ckpt_path: /fsx/aimi/siaug/checkpoints/repr/mimic/rrc_middle_high_jitter_contrast-last.pt

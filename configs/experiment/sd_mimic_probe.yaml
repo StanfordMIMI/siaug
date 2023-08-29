@@ -1,0 +1,80 @@
+# @package _global_
+
+defaults:
+  - override /dataloader: mimic.yaml
+  - override /model: sd.yaml
+  - override /criterion: bce.yaml
+  - override /metrics: chexpert.yaml
+
+# general settings
+task_name: sd_linear_probe
+max_epoch: 90
+
+# override dataloader settings
+dataloader:
+  train:
+    batch_size: 256
+    dataset:
+      com_transform:
+        _target_: siaug.augmentations.ExtractKeys
+        keys: ["img", "lbl"]
+      img_transform:
+        _target_: torchvision.transforms.Compose
+        transforms:
+          - _partial_: true
+            _target_: torch.load
+          - _partial_: true
+            _target_: torch.unsqueeze
+            dim: 0
+          - _target_: siaug.augmentations.ExpandChannels
+            out_channels: 3
+          - _target_: kornia.augmentation.Resize
+            size:
+              - 512
+              - 512
+            keepdim: true
+          - _target_: torchvision.transforms.Normalize
+            mean:
+              - 0.5173
+            std:
+              - 0.2821
+
+  valid:
+    batch_size: 256
+    dataset:
+      com_transform:
+        _target_: siaug.augmentations.ExtractKeys
+        keys: ["img", "lbl"]
+      img_transform:
+        _target_: torchvision.transforms.Compose
+        transforms:
+          - _partial_: true
+            _target_: torch.load
+          - _partial_: true
+            _target_: torch.unsqueeze
+            dim: 0
+          - _target_: siaug.augmentations.ExpandChannels
+            out_channels: 3
+          - _target_: kornia.augmentation.Resize
+            size:
+              - 512
+              - 512
+            keepdim: true
+          - _target_: torchvision.transforms.Normalize
+            mean:
+              - 0.5173
+            std:
+              - 0.2821
+
+# override model settings
+model:
+  pretrained: true
+  freeze: true
+  num_classes: 8
+  backbone: null
+
+# optimizer for linear eval
+optimizer:
+  lr: 30
+  weight_decay: 0
+  momentum: 0.9

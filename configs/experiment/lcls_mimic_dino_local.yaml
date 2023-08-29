@@ -1,0 +1,10 @@
+# @package _global_
+
+defaults:
+  - lcls_mimic_base.yaml
+task_name: lcls_mimic_dino_local
+model:
+  backbone: resnet50
+  ckpt_path: /fsx/aimi/siaug/rebuttal/dino_local.pt
+  model_keys: ["teacher"]
+  prefix: module.backbone.

@@ -1,0 +1,54 @@
+# @package _global_
+
+defaults:
+  - repr_mimic_base.yaml
+task_name: jitter_blur
+model:
+  backbone: resnet50
+dataloader:
+  train:
+    dataset:
+      img_transform:
+        _target_: torchvision.transforms.Compose
+        transforms:
+          - _partial_: true
+            _target_: torch.load
+          - _partial_: true
+            _target_: torch.unsqueeze
+            dim: 0
+          - _target_: kornia.augmentation.Resize
+            size:
+              - 224
+              - 224
+            keepdim: true
+          - _target_: siaug.augmentations.ToSiamese
+            t1:
+              _target_: torchvision.transforms.Compose
+              transforms:
+                - _target_: torchvision.transforms.ColorJitter
+                  brightness: 0.4
+                  contrast: 0.4
+                  hue: 0
+                  saturation: 0
+                - _target_: kornia.augmentation.RandomGaussianBlur
+                  kernel_size:
+                    - 23
+                    - 23
+                  sigma:
+                    - 0.1
+                    - 2.0
+                  p: 1
+                  keepdim: true
+                - _target_: torchvision.transforms.Normalize
+                  mean:
+                    - 0.5173
+                  std:
+                    - 0.2821
+            t2:
+              _target_: torchvision.transforms.Compose
+              transforms:
+                - _target_: torchvision.transforms.Normalize
+                  mean:
+                    - 0.5173
+                  std:
+                    - 0.2821

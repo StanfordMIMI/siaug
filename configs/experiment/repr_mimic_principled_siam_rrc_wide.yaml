@@ -1,0 +1,50 @@
+# @package _global_
+
+defaults:
+  - repr_mimic_base.yaml
+task_name: repr_mimic_principled_siam_rrc_wide
+model:
+  backbone: resnet50
+dataloader:
+  train:
+    dataset:
+      img_transform:
+        _target_: torchvision.transforms.Compose
+        transforms:
+          - _partial_: true
+            _target_: torch.load
+          - _partial_: true
+            _target_: torch.unsqueeze
+            dim: 0
+          - _target_: kornia.augmentation.RandomCrop
+            size:
+              - 224
+              - 224
+            keepdim: true
+          - _target_: siaug.augmentations.ToSiamese
+            t1:
+              _target_: torchvision.transforms.Compose
+              transforms:
+                - _target_: torchvision.transforms.RandomResizedCrop
+                  size: 224
+                  scale:
+                    - 0.1
+                    - 0.9
+                - _target_: torchvision.transforms.Normalize
+                  mean:
+                    - 0.5173
+                  std:
+                    - 0.2821
+            t2:
+              _target_: torchvision.transforms.Compose
+              transforms:
+                - _target_: torchvision.transforms.RandomResizedCrop
+                  size: 224
+                  scale:
+                    - 0.1
+                    - 0.9
+                - _target_: torchvision.transforms.Normalize
+                  mean:
+                    - 0.5173
+                  std:
+                    - 0.2821

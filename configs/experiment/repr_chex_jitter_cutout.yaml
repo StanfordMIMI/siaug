@@ -1,0 +1,47 @@
+# @package _global_
+
+defaults:
+  - repr_chex_base.yaml
+
+# general settings
+task_name: repr_chex_jitter_cutout
+
+# override dataloader settings
+dataloader:
+  train:
+    dataset:
+      # only keep the image, dispose the text and labels
+      img_transform:
+        _target_: siaug.augmentations.ToSiamese
+        # random resized crop
+        t1:
+          _target_: torchvision.transforms.Compose
+          transforms:
+            - _target_: torchvision.transforms.Resize
+              size: [224, 224]
+            - _target_: torchvision.transforms.ToTensor
+            - _target_: torchvision.transforms.ColorJitter
+              brightness: 0.4
+              contrast: 0.4
+              saturation: 0.4
+              hue: 0.1
+            - _target_: kornia.augmentation.RandomErasing
+              p: 1
+              keepdim: true
+            - _target_: torchvision.transforms.Normalize
+              mean: [0.50551915]
+              std: [0.2895694]
+        # identity
+        t2:
+          _target_: torchvision.transforms.Compose
+          transforms:
+            - _target_: torchvision.transforms.Resize
+              size: [224, 224]
+            - _target_: torchvision.transforms.ToTensor
+            - _target_: torchvision.transforms.Normalize
+              mean: [0.50551915]
+              std: [0.2895694]
+
+# override model settings
+model:
+  backbone: resnet50

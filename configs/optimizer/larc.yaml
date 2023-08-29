@@ -1,0 +1,6 @@
+# partially instantiate an optimizer, so that it only requires params
+_partial_: true
+_target_: siaug.utils.optimizers.LARS
+lr: 0.02
+weight_decay: 0
+momentum: 0.9

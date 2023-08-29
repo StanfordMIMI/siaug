@@ -1,0 +1,6 @@
+_partial_: true
+_target_: pl_bolts.optimizers.LARS
+lr: 0.02
+trust_coefficient: 0.001
+weight_decay: 0
+momentum: 0.9

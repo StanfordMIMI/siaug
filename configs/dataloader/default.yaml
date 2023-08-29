@@ -1,0 +1,16 @@
+train:
+  dataset: ???
+  batch_size: ??? # total amount across gpus and nodes
+  shuffle: true
+  num_workers: ${oc.env:NUM_WORKERS} # total amount across nodes
+  pin_memory: true
+  drop_last: true
+
+# the valid dataloader is not always used, so ??? are replaced by null
+valid:
+  dataset: null
+  batch_size: null
+  shuffle: false
+  num_workers: ${oc.env:NUM_WORKERS}
+  pin_memory: true
+  drop_last: false

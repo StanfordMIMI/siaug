@@ -1,0 +1,16 @@
+# @package _global_
+
+defaults:
+  - eval_chex_base.yaml
+
+# general settings
+task_name: eval_chex_resnet
+
+# override dataloader settings
+# dataloader:
+#   valid:
+#     batch_size: 4
+
+# override model settings 
+model:
+  backbone: resnet50

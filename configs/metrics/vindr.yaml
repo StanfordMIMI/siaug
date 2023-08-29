@@ -1,0 +1,4 @@
+- - "AUROC@Multilabel"
+  - _partial_: true
+    _target_: torchmetrics.functional.classification.multilabel_auroc
+    num_labels: 9

@@ -1,0 +1,44 @@
+defaults:
+  - default.yaml
+
+train:
+  dataset:
+    _target_: siaug.dataloaders.CheXpertDataset
+    path: ${paths.data_dir}/chexpert/train_200k_Frontal.csv
+    data_dir: ${paths.data_dir}/chexpert
+    columns:
+      [
+        "atelectasis",
+        "cardiomegaly",
+        "edema",
+        "fracture",
+        "pleural_effusion",
+        "pneumonia",
+        "pneumothorax",
+        "no_finding",
+      ]
+    na_mode: positive
+    img_transform: ???
+    txt_transform: null
+    lbl_transform: null
+
+valid:
+  dataset:
+    _target_: siaug.dataloaders.CheXpertDataset
+    path: ${paths.data_dir}/chexpert/valid_23k_Frontal.csv
+    data_dir: ${paths.data_dir}/chexpert
+    columns:
+      [
+        "atelectasis",
+        "cardiomegaly",
+        "edema",
+        "fracture",
+        "pleural_effusion",
+        "pneumonia",
+        "pneumothorax",
+        "no_finding",
+      ]
+    na_mode: positive
+    img_transform: ???
+    txt_transform: null
+    lbl_transform: null

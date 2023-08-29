@@ -1,0 +1,13 @@
+_target_: siaug.models.ConVIRT
+
+# backbone/encoder of the siamese network (=model_name for timm)
+img_backbone: ???
+
+# backbone for the text, passed to huggingface
+txt_backbone: ???
+
+# the number of channels for the images in the dataset (=in_chans for timm)
+num_channels: ???
+
+# output dimension of the projector and the predictor
+output_dim: 512

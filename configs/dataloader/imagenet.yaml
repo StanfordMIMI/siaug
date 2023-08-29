@@ -1,0 +1,18 @@
+defaults:
+  - default.yaml
+
+train:
+  dataset:
+    _target_: siaug.dataloaders.ImageNetDataset
+    root: ${paths.data_dir}/imagenet
+    split: train
+    img_transform: ???
+    lbl_transform: null
+
+valid:
+  dataset:
+    _target_: siaug.dataloaders.ImageNetDataset
+    root: ${paths.data_dir}/imagenet
+    split: val
+    img_transform: ???
+    lbl_transform: null
