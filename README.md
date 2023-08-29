@@ -16,10 +16,6 @@ This repository contains the implementation code for our paper: <br>
 Tailored augmentation strategies for image-only Siamese representation learning can outperform supervised baselines with zero-shot learning, linear probing and fine-tuning for chest X-ray classification. We systematically assess the effect of various augmentations on the quality and robustness of the learned representations. We train and evaluate Siamese Networks for abnormality detection on chest X-Rays across three large datasets (MIMIC-CXR, CheXpert and VinDr-CXR). We investigate the efficacy of the learned representations through experiments involving linear probing, fine-tuning, zero-shot transfer, and data efficiency. Finally, we identify a set of augmentations that yield robust representations that generalize well to both out-of-distribution data and diseases, while outperforming supervised baselines using just zero-shot transfer and linear probes by up to 20%.
 
 
-## Updates
-- __[04/29/2023]__ The code is currently being cleaned up for release. Please stay tuned for updates. If you'd like to access our code sooner, reach out to us via [email](#contact)
-
-
 ## Installation
 To contribute to _siaug_, you can install the package in editable mode:
 
